@@ -1,0 +1,20 @@
+{
+    "asset": "c59214a30bd00874ca5d32b6f6deae37",
+    "fileName": "01993995-39f6-74dc-99eb-0ac5e1ce879d.png",
+    "prompt": "fhgfhgf",
+    "negativePrompt": "",
+    "model": "2c3876b2-4b46-4056-bd4d-8b939cf2ec71",
+    "modelName": "Minimalist 3D Props",
+    "customSeed": -1,
+    "w3CTraceId": "94ba78ce20fd5a368c51bf87f76d825e",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

@@ -1,0 +1,13 @@
+{
+    "asset": "7a9101ce06220fb4bbf88751a4e9a49c",
+    "fileName": "019986d8-1b1e-7d21-b3d3-6b239e9f9955.wav",
+    "prompt": "Muffin Explosion",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "7f64a1f27df7ab819382525cd4805cc7",
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false
+}
