@@ -14,6 +14,9 @@ public class DidMove : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private int maxHealth = 5;
+
+    [SerializeField] private GameObject hitEffect;
+    [SerializeField] private GameObject secondaryEffect;
     private int currentHealth;
 
     private Rigidbody2D rb;
@@ -91,6 +94,12 @@ public class DidMove : MonoBehaviour
             Vector2 knockbackDir = (rb.position - (Vector2)collision.transform.position).normalized;
             rb.AddForce(knockbackDir * 500f);
             StartCoroutine(KnockbackRoutine(knockbackDir));
+
+            if (hitEffect != null)
+            {
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                Destroy(effect, 0.5f);
+            }
         }
     }
 
@@ -115,6 +124,13 @@ public class DidMove : MonoBehaviour
         {
             if (animator != null)
                 animator.SetTrigger("Death");
+
+            // spawn secondary effect on death
+            if (secondaryEffect != null)
+            {
+                GameObject sec = Instantiate(secondaryEffect, transform.position, Quaternion.identity);
+                Destroy(sec, 0.5f);
+            }
 
             Collider2D col = GetComponent<Collider2D>();
             if (col != null)

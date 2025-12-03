@@ -240,6 +240,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DidMove
   moveSpeed: 5
+  maxHealth: 5
+  hitEffect: {fileID: 3600685732109306423, guid: 5b4f53362f67d4d4796e97add7cb5ddc, type: 3}
+  secondaryEffect: {fileID: 0}
 --- !u!70 &206735451
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -683,6 +686,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DidMove
   moveSpeed: 5
+  maxHealth: 5
+  hitEffect: {fileID: 3600685732109306423, guid: 5b4f53362f67d4d4796e97add7cb5ddc, type: 3}
+  secondaryEffect: {fileID: 0}
 --- !u!70 &461247431
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1141,6 +1147,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DidMove
   moveSpeed: 5
+  maxHealth: 5
+  hitEffect: {fileID: 3600685732109306423, guid: 5b4f53362f67d4d4796e97add7cb5ddc, type: 3}
+  secondaryEffect: {fileID: 0}
 --- !u!70 &530408310
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1994,6 +2003,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DidMove
   moveSpeed: 5
+  maxHealth: 5
+  hitEffect: {fileID: 3600685732109306423, guid: 5b4f53362f67d4d4796e97add7cb5ddc, type: 3}
+  secondaryEffect: {fileID: 7297354832494650963, guid: 53e7d1e7506d31745abfb5ac9a506569, type: 3}
 --- !u!70 &1181964236
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
