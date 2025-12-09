@@ -13,14 +13,9 @@ public class DidMove : MonoBehaviour
 
 
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private int maxHealth = 5;
-
-    [SerializeField] private GameObject hitEffect;
-    [SerializeField] private GameObject secondaryEffect;
-    private int currentHealth;
 
     private Rigidbody2D rb;
-    private Animator animator;
+
     private Vector2 moveDir;
 
     private Vector3 initialScale;
@@ -29,9 +24,7 @@ public class DidMove : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
         initialScale = transform.localScale;
-        currentHealth = maxHealth;
     }
 
     void Start()
@@ -60,6 +53,7 @@ public class DidMove : MonoBehaviour
 
     private void AdjustAnimation()
     {
+        Animator animator = GetComponent<Animator>();
         if (animator != null)
         {
             if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.y))
@@ -82,7 +76,7 @@ public class DidMove : MonoBehaviour
             else
             {
                 animator.SetFloat("MoveX", 0);
-                animator.SetFloat("MoveY", moveDir.y);
+                animator.SetFloat("MoveY", moveDir.y);  
             }
         }
     }
@@ -97,8 +91,7 @@ public class DidMove : MonoBehaviour
 
             if (hitEffect != null)
             {
-                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-                Destroy(effect, 0.5f);
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
             }
         }
     }
@@ -109,53 +102,8 @@ public class DidMove : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(knockbackDir * 500f);
 
-        // reduce health by one each knockback
-        currentHealth--;
-
-        // Trigger the Damage animation and reset the trigger after 0.5 seconds
-        if (animator != null)
-        {
-            animator.SetTrigger("Damage");
-            StartCoroutine(ResetDamageTrigger());
-        }
-
-        // If health depleted, play death, freeze the enemy, wait 1s and destroy
-        if (currentHealth <= 0)
-        {
-            if (animator != null)
-                animator.SetTrigger("Death");
-
-            // spawn secondary effect on death
-            if (secondaryEffect != null)
-            {
-                GameObject sec = Instantiate(secondaryEffect, transform.position, Quaternion.identity);
-                Destroy(sec, 0.5f);
-            }
-
-            Collider2D col = GetComponent<Collider2D>();
-            if (col != null)
-                col.enabled = false;
-
-            // stop movement and freeze physics
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-            // wait for death animation to play, then destroy
-            yield return new WaitForSeconds(1.5f);
-            Destroy(gameObject);
-            yield break;
-        }
-
         yield return new WaitForSeconds(0.3f);
 
         currentState = State.Roaming;
-    }
-
-    private IEnumerator ResetDamageTrigger()
-    {
-        yield return new WaitForSeconds(0.5f);
-        if (animator != null)
-            animator.ResetTrigger("Damage");
     }
 }
