@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     private float dashTimer2 = 0f;
     private float dashCooldownTimer2 = 0f;
 
+    [SerializeField] private int maxHealth = 1; // player's max health (1)
+    private int currentHealth;
+
     private PlayerControls playerControls;
 
     private Vector2 movement;
@@ -50,6 +53,9 @@ public class PlayerController : MonoBehaviour
         playerControls.Movement.Dash2.performed += ctx => TryStartDash2();
         myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+
+        // initialize health
+        currentHealth = maxHealth;
     }
 
     private void OnEnable()
@@ -271,6 +277,55 @@ public class PlayerController : MonoBehaviour
     private void SpecialAttack2(InputAction.CallbackContext context)
     {
         myAnimator.SetTrigger("SpecialAttack2");
+    }
+
+    // Handle taking damage from colliders tagged as EnemyAttack
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("EnemyAttack"))
+        {
+            // reduce health
+            currentHealth--;
+
+            // trigger damage animation
+            if (myAnimator != null)
+            {
+                myAnimator.SetTrigger("Damage");
+                StartCoroutine(ResetDamageTrigger());
+            }
+
+            // if dead, trigger death behavior
+            if (currentHealth <= 0)
+            {
+                if (myAnimator != null)
+                    myAnimator.SetTrigger("Death");
+
+                Collider2D col = GetComponent<Collider2D>();
+                if (col != null)
+                    col.enabled = false;
+
+                // stop movement and freeze physics
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+                // destroy after delay to allow death animation
+                StartCoroutine(DestroyAfterDelay(1.5f));
+            }
+        }
+    }
+
+    private System.Collections.IEnumerator ResetDamageTrigger()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (myAnimator != null)
+            myAnimator.ResetTrigger("Damage");
+    }
+
+    private System.Collections.IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 
 }
